@@ -1,0 +1,8 @@
+.tituloCadastro, .titulo{
+    display: flex;
+    justify-content: center;
+}
+
+.contentCadastro, .content{
+    margin: 40px;
+}
