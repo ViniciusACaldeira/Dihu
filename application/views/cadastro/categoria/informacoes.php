@@ -21,7 +21,7 @@
         </div>
 
         <div class="form-outline mb-4">
-            <textarea class="form-control" id="descricao" rows="4"></textarea>
+            <textarea class="form-control" id="descricao" name="descricao" rows="4"></textarea>
             <label class="form-label" for="descricao">Conteudo a ser exibido</label>
         </div>
 
