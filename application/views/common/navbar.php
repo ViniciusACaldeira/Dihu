@@ -38,7 +38,7 @@
                         <a class="dropdown-item" href="<?= base_url('eventos/cadastro'); ?>">Cadastrar Eventos</a>
                     </li>
                     <li>
-                        <a class="dropdown-item" href="">Analisar Denuncias</a>
+                        <a class="dropdown-item" href="<?= base_url('denuncie/analisar'); ?>">Analisar Denuncias</a>
                     </li>
 
                     <li><hr class="dropdown-divider" /></li>
