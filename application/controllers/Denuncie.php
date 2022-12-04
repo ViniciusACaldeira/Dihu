@@ -20,16 +20,24 @@ class Denuncie extends CI_Controller {
 		$this->load->view('common/footer');
 	}
 
-	public function analisar( ){
+	public function analisar( $id = null ){
+		
 		$this->load->view('common/header');
 		$this->load->view('common/navbar');
 
 		$this->load->model('denuncia/denunciaModel');
-        $Data['dados'] = $this->denunciaModel->listar();
+        $Data['dados'] = $this->denunciaModel->listar( $id );
 
 		$this->load->view('denuncia/analisar', $Data);
 
         //$this->load->view('usuario/login');
 		$this->load->view('common/footer');
+	}
+
+	public function alterarStatus( $id, $novo)
+	{
+		$this->load->model('denuncia/denunciaModel');
+        $this->denunciaModel->alterarStatus( $id, $novo );
+		redirect($_SERVER['HTTP_REFERER']);
 	}
 }

@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
         <button
@@ -33,30 +34,61 @@
                     >
                     <i class="fas fa-user"></i>
                     </a>
+
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <li>
-                        <a class="dropdown-item" href="<?= base_url('eventos/cadastro'); ?>">Cadastrar Eventos</a>
-                    </li>
-                    <li>
-                        <a class="dropdown-item" href="<?= base_url('denuncie/analisar'); ?>">Analisar Denuncias</a>
-                    </li>
 
-                    <li><hr class="dropdown-divider" /></li>
+                        <?php if( array_key_exists( 'admin', $_SESSION ) && $_SESSION['admin'] ): ?>
+                            
+                            <li>
+                                <a class="dropdown-item" href="<?= base_url('denuncie/analisar'); ?>">Analisar Denuncias</a>
+                            </li>
 
-                    <li>
-                        <a class="dropdown-item" href="<?= base_url('dihu/cadastroCategoria'); ?>">Cadastrar Categoria - Direitos Humanos</a>
-                    </li>
-                    <li>
-                        <a class="dropdown-item" href="<?= base_url('dihu/cadastroSubCategoria'); ?>">Cadastrar Sub Categoria - Direitos Humanos</a>
-                    </li>
-                    <li>
-                        <a class="dropdown-item" href="<?= base_url('dihu/cadastroInformacoes'); ?>">Cadastrar Informações - Direitos Humanos</a>
-                    </li>
+                            <li><hr class="dropdown-divider" /></li>
+                            <li>
+                                <a class="dropdown-item" href="<?= base_url('eventos/cadastro'); ?>">Cadastrar Eventos</a>
+                            </li>
 
-                    <li><hr class="dropdown-divider" /></li>
-                    <li>
-                        <a class="dropdown-item" href="">Usuários</a>
-                    </li>
+                            <li>
+                                <a class="dropdown-item" href="<?= base_url('dihu/cadastroCategoria'); ?>">Cadastrar Categoria - Direitos Humanos</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="<?= base_url('dihu/cadastroSubCategoria'); ?>">Cadastrar Sub Categoria - Direitos Humanos</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="<?= base_url('dihu/cadastroInformacoes'); ?>">Cadastrar Informações - Direitos Humanos</a>
+                            </li>
+
+                            <li><hr class="dropdown-divider" /></li>
+                            <li>
+                                <a class="dropdown-item" href="<?= base_url('usuario/listar'); ?>">Listar usuários</a>
+                            </li>
+
+                            <li><hr class="dropdown-divider" /></li>
+
+                        <?php endif; ?>
+
+                        <?php if( array_key_exists( 'id', $_SESSION ) ): $usuario = $_SESSION['id']; ?>
+                            <li>
+                                <a class="dropdown-item" href="<?= base_url('usuario/perfil'); ?>">Meu perfil</a>
+                            </li>
+
+                            <li>
+                                <a class="dropdown-item" href="<?= base_url("denuncie/analisar/$usuario"); ?>">Minhas denuncias</a>
+                            </li>
+
+                            <li><hr class="dropdown-divider" /></li>
+
+                            <li>
+                                <a class="dropdown-item" href="<?= base_url('usuario/sair'); ?>">Sair</a>
+                            </li>
+                        <?php else: ?>
+                            <li>
+                                <a class="dropdown-item" href="<?= base_url('usuario/logar'); ?>">Logar-se</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="<?= base_url('usuario/cadastro'); ?>">Cadastrar-se</a>
+                            </li>
+                        <?php endif; ?>
                     </ul>
                 </li>
             </ul>

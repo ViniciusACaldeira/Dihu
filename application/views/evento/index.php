@@ -4,9 +4,9 @@
     <?php foreach( $dados as $categoria): ?>
         <details>
         <summary><?= $categoria->nome?></summary>
-            <div class="list-group list-group-light" style="min-width: 22rem;">
+            <div class="row row-cols-1 row-cols-md-3 g-4">
                 <?php foreach( $categoria->eventos as $evento): ?>
-                    <div class="col-sm-6">
+                    <div class="col">
                         <div class="card text-center">
                             <div class="card-header">Data Evento - <?=$evento->data?> </div>
                                 <div class="card-body">

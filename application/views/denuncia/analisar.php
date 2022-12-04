@@ -8,7 +8,8 @@
                 <th>Anônimo</th>
                 <th>Data</th>
                 <th>Descrição</th>
-                <th>Ação</th>
+                <th>Status</th>
+                <th></th>
               </tr>
             </thead>
             <tbody>
@@ -31,9 +32,25 @@
                             <p class="fw-normal mb-1"><?= $linha->descricao ?></p>
                         </td>
                         <td>
-                            <button type="button" class="btn btn-link btn-sm btn-rounded">
-                                Alterar
+                            <p class="fw-normal mb-1"><?= $linha->statusNome ?></p>
+                        </td>
+                        <td>
+                        <div class="dropdown">
+                            <button type="button" 
+                                    class="btn dropdown-toggle btn-sm btn-rounded" 
+                                    id="dropdownAcao"
+                                    data-mdb-toggle="dropdown"
+                                    aria-expanded="false">
+                                Ações
                             </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownAcao">
+                                <?php if( $linha->usuario == 1 && $linha->status == 1 ): ?>
+                                    <li><a class="dropdown-item" href="<?= base_url("denuncie/alterarStatus/$linha->id/3"); ?>">Alterar para Cancelado</a></li>
+                                <?php elseif( !$linha->usuario ): ?>
+                                    <li><a class="dropdown-item" href="<?= base_url("denuncie/alterarStatus/$linha->id/2"); ?>">Marcar como Visto</a></li>
+                                <?php endif; ?>
+                            </ul>
+                        </div>
                         </td>
                     </tr>
                 <?php endforeach;?>
