@@ -26,43 +26,57 @@
 
         public function coletaCategoriaSubCategoria( )
         {
-            $sql = "SELECT c.id categoriaID, c.nome nomeCategoria, sc.Nome nomeSubCategoria, sc.ID subCategoriaID
+            $sql = "SELECT c.id categoriaID, c.nome nomeCategoria, sc.Nome nomeSubCategoria, sc.ID subCategoriaID, i.id informacaoID, i.titulo
                     FROM categoria c
                     INNER JOIN subCategoria sc on c.id = sc.categoriaID
                     INNER JOIN informacoes i on i.subCategoriaID = sc.id
                     ORDER BY c.id";
             
-            $resultado = $this->db->query($sql)->result( );
+            $sql = "SELECT * FROM categoria";
+
+            $categorias = $this->db->query($sql)->result( );
             
             $data = [];
 
-            $categoria = new stdClass( );
-
-            foreach( $resultado as $dados )
+            foreach( $categorias as $categoria )
             {
-                if( !isset($categoria->id) || $categoria->id != $dados->categoriaID )
-                {
-                    if( isset($categoria->id) )
-                        array_push( $data, $categoria );
+                $dados = new stdClass( );
 
-                    $categoria = new stdClass( );
-                    $categoria->subCategorias = [];
-                    $categoria->id = $dados->categoriaID;
-                    $categoria->nome = $dados->nomeCategoria;
+                $dados->categoriaID = $categoria->id;
+                $dados->nomeCategoria = $categoria->nome;
+                $dados->subCategorias = [];
+                
+                $sql = "SELECT * FROM subCategoria WHERE categoriaID = $categoria->id";
+
+                $subCategorias = $this->db->query($sql)->result( );
+
+                foreach( $subCategorias as $subCategoria )
+                {
+                    $sb = new stdClass( );
+
+                    $sb->nomeSubCategoria = $subCategoria->nome;
+                    $sb->subCategoriaID = $subCategoria->id;
+                    $sb->informacoes = [];
+
+                    $sql = "SELECT * FROM informacoes WHERE subCategoriaID = $subCategoria->id";
+
+                    $informacoes = $this->db->query($sql)->result( );
+
+                    foreach( $informacoes as $informacao )
+                    {
+                        $inf = new stdClass( );
+
+                        $inf->informacaoID = $informacao->id;
+                        $inf->informacaoTitulo = $informacao->titulo;
+
+                        array_push( $sb->informacoes, $inf );
+                    }
+
+                    array_push( $dados->subCategorias, $sb );
                 }
 
-                if( isset( $dados->subCategoriaID ) )
-                {
-                    $subCategoria = new stdClass( );
-                    $subCategoria->id = $dados->subCategoriaID;
-                    $subCategoria->nome = $dados->nomeSubCategoria;
-
-                    array_push( $categoria->subCategorias, $subCategoria );
-                }
+                array_push( $data, $dados );
             }
-
-            if( isset($categoria->id) )
-                array_push( $data, $categoria);
 
             return $data;
         }

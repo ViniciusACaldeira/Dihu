@@ -15,9 +15,9 @@
             $this->db->query($sql);
         }
 
-        public function coletaInformacoes( $subCategoria )
+        public function coletaInformacoes( $id )
         {
-            $sql = "SELECT * FROM informacoes WHERE subCategoriaID = $subCategoria";
+            $sql = "SELECT * FROM informacoes WHERE id = $id";
             $resultado = $this->db->query($sql)->result( )[0];
             $resultado->links = explode( ',', $resultado->links );
 
