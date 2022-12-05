@@ -20,7 +20,10 @@
             $sql = "SELECT * FROM informacoes WHERE id = $id";
             $resultado = $this->db->query($sql)->result( )[0];
             $resultado->links = explode( ',', $resultado->links );
+            $resultado->eventos = [];
 
+            $this->load->model('eventos/eventoModel');
+            $resultado->eventos = $this->eventoModel->coletaEventosSubCategoria( $resultado->subCategoriaID );
             return $resultado;
         }
     }

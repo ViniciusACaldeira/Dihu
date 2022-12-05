@@ -67,4 +67,16 @@
 
             return $data;
         }
+
+        public function coletaEventosSubCategoria( $subCategoria )
+        {
+            $sql = "SELECT e.*, DATEDIFF( e.data, now( ) ) diasInicio, 
+                            CASE WHEN DATEDIFF( e.data, now( ) ) >= 0 THEN true ELSE false END aberto FROM evento e 
+                    INNER JOIN evento_categoria ec ON ec.eventoID = e.id
+                    INNER JOIN categoria c ON c.id = ec.categoriaID
+                    INNER JOIN subCategoria sc ON sc.categoriaID = c.id
+                    WHERE sc.id = $subCategoria";
+
+            return $this->db->query($sql)->result( );
+        }
 }
