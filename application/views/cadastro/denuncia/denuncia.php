@@ -11,7 +11,7 @@
         </select>
 
         <div class="form-check d-flex mb-4 mt-4">
-            <input class="form-check-input me-2" type="checkbox" name="anonimo" value="1" id="anonimo" checked />
+            <input class="form-check-input me-2" type="checkbox" name="anonimo" value="1" id="anonimo" checked <?= array_key_exists( 'id', $_SESSION ) && $_SESSION['id'] ? '' : 'onclick="return false;"'?>/>
             <label class="form-check-label" for="anonimo">
                 Anônimo
             </label>

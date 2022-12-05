@@ -83,7 +83,7 @@
                             </li>
                         <?php else: ?>
                             <li>
-                                <a class="dropdown-item" href="<?= base_url('usuario/logar'); ?>">Logar-se</a>
+                                <a class="dropdown-item" href="<?= base_url('usuario/logar'); ?>">Logar</a>
                             </li>
                             <li>
                                 <a class="dropdown-item" href="<?= base_url('usuario/cadastro'); ?>">Cadastrar-se</a>
